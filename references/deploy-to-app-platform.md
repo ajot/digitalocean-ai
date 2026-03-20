@@ -66,7 +66,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--timeout", "120", "app:app"]
 ```
 
 ## Next.js (Node)
@@ -186,7 +186,7 @@ With `deploy_on_push: true` in the app spec, every push to `main` triggers an au
 ## Deployment rules
 
 - Port **must** be 8080 — both in the app code and Dockerfile
-- Flask: include `gunicorn` in `requirements.txt`
+- Flask: include `gunicorn` in `requirements.txt` and set `--timeout 120` (AI inference calls can exceed the default 30s timeout, especially image generation)
 - Next.js: set `output: "standalone"` in `next.config.js`
 - Do not deploy until explicitly instructed
 - Verify a GitHub repo exists before first deploy; create one with `gh repo create` if needed
