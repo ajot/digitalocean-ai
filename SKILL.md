@@ -4,15 +4,20 @@ description: >-
   Build and deploy apps with DigitalOcean Gradient AI inference.
   Provides authentication, available models (OpenAI, Anthropic, Meta, DeepSeek, Mistral, Qwen, and more),
   integration via cURL/OpenAI SDK/Gradient SDK, image and audio generation, AI agents,
+  managed databases (PostgreSQL with pgvector, MongoDB), Spaces object storage,
   and deployment to DigitalOcean App Platform with continuous deployment from GitHub.
   Use when building or deploying AI-powered applications with DigitalOcean or Gradient.
 ---
 
 # DigitalOcean Gradient AI
 
-Serverless AI inference — call foundation models via API without managing infrastructure.
+Two inference options:
+- **Serverless inference** (below) — call foundation models via API, pay per token, no infrastructure to manage. Best for getting started and variable traffic.
+- **Dedicated inference** — deploy models on dedicated GPUs for sustained high-throughput workloads. See [references/dedicated-inference.md](references/dedicated-inference.md).
 
-## Authentication
+## Serverless Inference
+
+### Authentication
 
 1. Create a model access key in the [DigitalOcean console](https://cloud.digitalocean.com) under Gradient > Serverless Inference
 2. Set it as an environment variable:
@@ -27,7 +32,7 @@ export DIGITAL_OCEAN_MODEL_ACCESS_KEY="your-key-here"
 Authorization: Bearer $DIGITAL_OCEAN_MODEL_ACCESS_KEY
 ```
 
-## Base URL
+### Base URL
 
 ```
 https://inference.do-ai.run/v1/
@@ -132,9 +137,13 @@ For the full catalog (30+ models) with max tokens, capabilities, and embedding m
 
 ## Additional references
 
+- **Dedicated inference**: [references/dedicated-inference.md](references/dedicated-inference.md) — deploy models on dedicated GPUs, provisioning, public/private endpoints
 - **Full model catalog**: [references/models.md](references/models.md) — all models with max tokens, capabilities, caching, reasoning
 - **Image and audio generation**: [references/image-and-audio.md](references/image-and-audio.md) — sync and async workflows, base64 decoding, fal models
 - **AI agents**: [references/agents.md](references/agents.md) — persistent agents with knowledge bases
+- **Databases**: [references/databases.md](references/databases.md) — PostgreSQL + pgvector, MongoDB, Gradient Knowledge Bases + OpenSearch, App Platform binding
+- **Spaces object storage**: [references/spaces.md](references/spaces.md) — S3-compatible storage for generated images, audio, uploads; CDN; Python and Node.js examples
+- **Droplets**: [references/droplets.md](references/droplets.md) — Linux VMs, GPU Droplets for ML, cloud-init setup, when to use vs App Platform
 - **Deploy to App Platform**: [references/deploy-to-app-platform.md](references/deploy-to-app-platform.md) — Flask and Next.js Dockerfiles, CD from GitHub
 
 ## Official docs
