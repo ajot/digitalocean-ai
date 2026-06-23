@@ -1,6 +1,6 @@
 # Deploy to DigitalOcean App Platform
 
-Templates for deploying Gradient-powered apps to [DigitalOcean App Platform](https://docs.digitalocean.com/products/app-platform/) with continuous deployment from GitHub.
+Templates for deploying Inference-powered apps to [DigitalOcean App Platform](https://docs.digitalocean.com/products/app-platform/) with continuous deployment from GitHub.
 
 ## Flask (Python)
 
@@ -33,7 +33,7 @@ client = OpenAI(
 
 @app.route("/")
 def index():
-    return "Hello from Gradient!"
+    return "Hello from DigitalOcean Inference!"
 
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -162,7 +162,7 @@ Set in the App Platform console or app spec:
 ### App spec (YAML)
 
 ```yaml
-name: my-gradient-app
+name: my-inference-app
 services:
   - name: web
     github:

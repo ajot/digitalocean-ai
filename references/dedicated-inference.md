@@ -15,7 +15,7 @@ Deploy models on dedicated GPUs for sustained, high-throughput workloads. Billed
 
 ## Provision a deployment
 
-Create via the [DO Console](https://cloud.digitalocean.com) under Inference Hub > Dedicated Inference > Deploy.
+Create via the [DO Console](https://cloud.digitalocean.com) under INFERENCE > Dedicated Inference > Deploy.
 
 ### Console steps
 
@@ -122,5 +122,5 @@ curl -X DELETE "https://api.digitalocean.com/v2/dedicated-inferences/<id>" \
 
 ## Official docs
 
-- [Dedicated inference guide](https://docs.digitalocean.com/products/inference-hub/how-to/use-dedicated-inference)
+- [Dedicated inference guide](https://docs.digitalocean.com/products/inference/how-to/use-dedicated-inference/)
 - [GPU Droplets](https://docs.digitalocean.com/products/gpu-droplets/)

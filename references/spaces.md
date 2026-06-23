@@ -128,7 +128,7 @@ await client.send(
 
 Note: Use `us-east-1` as the region value even if your bucket is in a different region.
 
-## Common pattern: Save Gradient-generated images to Spaces
+## Common pattern: Save Inference-generated images to Spaces
 
 ```python
 import os
@@ -137,7 +137,7 @@ import boto3
 from botocore.client import Config
 from openai import OpenAI
 
-gradient = OpenAI(
+inference = OpenAI(
     base_url="https://inference.do-ai.run/v1/",
     api_key=os.getenv("DIGITAL_OCEAN_MODEL_ACCESS_KEY")
 )
@@ -151,9 +151,9 @@ spaces = boto3.session.Session().client(
     config=Config(s3={"addressing_style": "virtual"})
 )
 
-# Generate image with Gradient
-response = gradient.images.generate(
-    model="openai-gpt-image-1",
+# Generate image with the Inference Engine
+response = inference.images.generate(
+    model="openai-gpt-image-2",
     prompt="A futuristic cityscape at sunset",
     n=1,
     size="1024x1024"

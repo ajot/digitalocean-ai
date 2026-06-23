@@ -1,12 +1,12 @@
-# Image and Audio Generation
+# Image, Audio & Video Generation
 
-Two patterns: **sync** for OpenAI image models, **async** for fal models (image, audio, TTS).
+Two patterns: **sync** for OpenAI image models, **async** for fal models (image, audio, TTS) and video models.
 
-For the full API reference, see the [serverless inference guide](https://docs.digitalocean.com/products/gradient-ai-platform/how-to/use-serverless-inference/).
+For the full API reference, see the [serverless inference guide](https://docs.digitalocean.com/products/inference/how-to/use-serverless-inference/) and [use fal models](https://docs.digitalocean.com/products/inference/how-to/use-fal-models/).
 
 ## Sync image generation (OpenAI)
 
-Use `/v1/images/generations` with `openai-gpt-image-1`.
+Use `/v1/images/generations` with an OpenAI image model such as `openai-gpt-image-2`.
 
 ### cURL
 
@@ -15,7 +15,7 @@ curl -s -X POST https://inference.do-ai.run/v1/images/generations \
   -H "Authorization: Bearer $DIGITAL_OCEAN_MODEL_ACCESS_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "openai-gpt-image-1",
+    "model": "openai-gpt-image-2",
     "prompt": "A cute baby sea otter wearing a hat",
     "n": 1,
     "size": "1024x1024"
@@ -34,7 +34,7 @@ client = OpenAI(
 )
 
 response = client.images.generate(
-    model="openai-gpt-image-1",
+    model="openai-gpt-image-2",
     prompt="A cute baby sea otter wearing a hat",
     n=1,
     size="1024x1024"
@@ -45,31 +45,13 @@ with open("image.png", "wb") as f:
     f.write(image_data)
 ```
 
-### Python — Gradient SDK
+> **Legacy:** The native Gradient SDK (`from gradient import Gradient`, `client.images.generate(...)`) also works but is slated for deprecation — prefer the OpenAI SDK above.
 
-```python
-import base64
-from gradient import Gradient
+## Async generation (fal & video models)
 
-client = Gradient(model_access_key=os.getenv("DIGITAL_OCEAN_MODEL_ACCESS_KEY"))
+Fal models and video models use an async workflow: **submit** a request, **poll** for status, **retrieve** the result. The submit body uses `model_id` (not `model`).
 
-response = client.images.generate(
-    model="openai-gpt-image-1",
-    prompt="A cute baby sea otter wearing a hat",
-    n=1,
-    size="1024x1024"
-)
-
-image_data = base64.b64decode(response.data[0].b64_json)
-with open("image.png", "wb") as f:
-    f.write(image_data)
-```
-
-## Async generation (fal models)
-
-Fal models use an async workflow: **submit** a request, **poll** for status, **retrieve** the result.
-
-### Available fal models
+### Available async models
 
 | Model ID | Type |
 |---|---|
@@ -77,6 +59,7 @@ Fal models use an async workflow: **submit** a request, **poll** for status, **r
 | `fal-ai/fast-sdxl` | Image generation |
 | `fal-ai/stable-audio-25/text-to-audio` | Audio generation |
 | `fal-ai/elevenlabs/tts/multilingual-v2` | Text-to-speech |
+| `wan2-2-t2v-a14b` | Text-to-video |
 
 ### Step 1: Submit request
 
@@ -164,12 +147,17 @@ result = async_generate("fal-ai/flux/schnell", {
 
 # Text-to-speech
 result = async_generate("fal-ai/elevenlabs/tts/multilingual-v2", {
-    "text": "Hello from DigitalOcean Gradient!",
+    "text": "Hello from DigitalOcean Inference!",
     "voice_id": "JBFqnCBsd6RMkjVDRZzb"
 })
 
 # Audio generation
 result = async_generate("fal-ai/stable-audio-25/text-to-audio", {
     "prompt": "Calm ambient music with soft piano"
+})
+
+# Text-to-video
+result = async_generate("wan2-2-t2v-a14b", {
+    "prompt": "A neon city skyline at dusk, slow camera pan"
 })
 ```

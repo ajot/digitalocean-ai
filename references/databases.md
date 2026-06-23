@@ -46,7 +46,7 @@ CREATE TABLE embeddings (
 CREATE INDEX ON embeddings USING hnsw (embedding vector_cosine_ops);
 ```
 
-### Store embeddings from Gradient
+### Store embeddings from Inference
 
 ```python
 import os
@@ -56,7 +56,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-gradient = OpenAI(
+inference = OpenAI(
     base_url="https://inference.do-ai.run/v1/",
     api_key=os.getenv("DIGITAL_OCEAN_MODEL_ACCESS_KEY")
 )
@@ -154,16 +154,16 @@ await db.collection("conversations").insertOne({
 });
 ```
 
-## Gradient Knowledge Bases + OpenSearch
+## Knowledge Bases + OpenSearch
 
-Best for: fully managed vector search — no database setup required. Gradient handles chunking, embedding, and indexing automatically.
+Best for: fully managed vector search — no database setup required. The Inference Engine handles chunking, embedding, and indexing automatically.
 
 ### How it works
 
-1. Create a knowledge base in the [DO Console](https://cloud.digitalocean.com) under Gradient > Agents > Knowledge Bases
+1. Create a knowledge base in the [DO Console](https://cloud.digitalocean.com) under INFERENCE > Agent Platform > Knowledge Bases
 2. Select an embedding model
 3. Connect a data source (file upload, DO Spaces, public URL, S3, or Dropbox)
-4. Gradient chunks the data, generates embeddings, and stores them in a managed OpenSearch cluster
+4. The data is chunked, embedded, and stored in a managed OpenSearch cluster
 
 The OpenSearch cluster appears in your Databases list and scales independently.
 
@@ -194,7 +194,7 @@ When deploying to App Platform, bind your database to the app for automatic env 
 ### App spec with database
 
 ```yaml
-name: my-gradient-app
+name: my-inference-app
 databases:
   - name: my-db
     engine: PG

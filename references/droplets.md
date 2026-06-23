@@ -105,7 +105,7 @@ Create `/etc/systemd/system/myapp.service`:
 
 ```ini
 [Unit]
-Description=My Gradient App
+Description=My Inference App
 After=network.target
 
 [Service]
