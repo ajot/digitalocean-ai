@@ -148,7 +148,8 @@ For the full catalog (70+ models) with max tokens, capabilities, embeddings, and
 | `/v1/chat/completions` | POST | Chat completions (OpenAI-compatible) |
 | `/v1/responses` | POST | Text/multimodal responses with reasoning |
 | `/v1/images/generations` | POST | Sync image generation (OpenAI image models) |
-| `/v1/async-invoke` | POST | Async image/audio/video generation (fal models) |
+| `/v1/async-invoke` | POST | Async image/audio/TTS generation (fal models) |
+| `/v1/videos` | POST | Text-to-video (Wan 2.2); poll `/v1/videos/{id}`, fetch `/v1/videos/{id}/content` |
 | `/v1/batches` | POST | Batch inference jobs (async, up to ~50% cheaper) |
 
 ## Additional references

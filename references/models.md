@@ -125,9 +125,9 @@ Values: `none`, `low`, `medium`, `high`, `max`.
 | `fal-ai/stable-audio-25/text-to-audio` | fal | Audio (async) |
 | `fal-ai/elevenlabs/tts/multilingual-v2` | fal | TTS (async) |
 | `qwen3-tts-voicedesign` | Alibaba | TTS |
-| `wan2-2-t2v-a14b` | — | Text-to-video (async) |
+| `wan2-2-t2v-a14b` | Alibaba | Text-to-video |
 
-Sync image models use `/v1/images/generations`; fal and video models use the async `/v1/async-invoke` workflow. See [image-and-audio.md](image-and-audio.md).
+Sync image models use `/v1/images/generations`; fal image/audio/TTS models use the async `/v1/async-invoke` workflow; text-to-video uses its own `/v1/videos` endpoint. See [image-and-audio.md](image-and-audio.md).
 
 ## Embedding models
 
